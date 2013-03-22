@@ -7,7 +7,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.tutorial.addressbook.event.InitContactListEvent;
 import com.vaadin.tutorial.addressbook.model.AddressbookModel;
 import com.vaadin.tutorial.addressbook.view.ContactEditorImpl;
-import com.vaadin.tutorial.addressbook.view.ContactTreeImpl;
+import com.vaadin.tutorial.addressbook.view.ContactListImpl;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.UI;
 
@@ -50,7 +50,7 @@ public class AddressbookUI extends UI {
 		/* Root of the user interface component tree is set */
 		HorizontalSplitPanel splitPanel = new HorizontalSplitPanel();
 		/* Build the component tree */
-		splitPanel.addComponent(new ContactTreeImpl(eventBus));
+		splitPanel.addComponent(new ContactListImpl(eventBus));
 		splitPanel.addComponent(new ContactEditorImpl(eventBus));
 
 		setContent(splitPanel);

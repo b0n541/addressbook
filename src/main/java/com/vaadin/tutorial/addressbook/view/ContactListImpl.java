@@ -22,7 +22,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-public class ContactTreeImpl extends VerticalLayout implements ContactTree {
+public class ContactListImpl extends VerticalLayout implements ContactList {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class ContactTreeImpl extends VerticalLayout implements ContactTree {
 	private final TextField searchField = new TextField();
 	private final Button addNewContactButton = new Button("New");
 
-	public ContactTreeImpl(EventBus eventBus) {
+	public ContactListImpl(EventBus eventBus) {
 
 		this.eventBus = eventBus;
 

@@ -4,7 +4,7 @@ import com.vaadin.tutorial.addressbook.event.InitContactListEvent;
 import com.vaadin.tutorial.addressbook.event.NewContactAddedEvent;
 import com.vaadin.tutorial.addressbook.event.RemoveSelectedContactEvent;
 
-public interface ContactTree {
+public interface ContactList {
 
 	public void handleInitContactListEvent(InitContactListEvent event);
 
