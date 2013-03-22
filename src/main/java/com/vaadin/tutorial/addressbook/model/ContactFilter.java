@@ -9,6 +9,8 @@ import com.vaadin.data.Item;
  */
 public class ContactFilter implements Filter {
 
+	private static final long serialVersionUID = 1L;
+
 	private static final String FNAME = "First Name";
 	private static final String LNAME = "Last Name";
 	private static final String COMPANY = "Company";
