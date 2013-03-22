@@ -3,6 +3,7 @@ package com.vaadin.tutorial.addressbook.presenter;
 import com.google.gwt.thirdparty.guava.common.eventbus.EventBus;
 import com.google.gwt.thirdparty.guava.common.eventbus.Subscribe;
 import com.vaadin.tutorial.addressbook.event.ContactSelectEvent;
+import com.vaadin.tutorial.addressbook.event.RemoveSelectedContactEvent;
 import com.vaadin.tutorial.addressbook.model.AddressbookModel;
 import com.vaadin.tutorial.addressbook.view.ContactEditor;
 
@@ -27,5 +28,11 @@ public class ContactEditorPresenter implements ContactEditor.Listener
     public void onContactSelected(ContactSelectEvent event)
     {
         view.setSelectedContact(event.contact);
+    }
+
+    @Override
+    public void removeSelectedContact()
+    {
+        eventBus.post(new RemoveSelectedContactEvent());
     }
 }

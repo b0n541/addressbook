@@ -78,30 +78,26 @@ public class ContactListImpl extends VerticalLayout implements ContactList
         });
     }
 
-    // @Override
-    // @Subscribe
-    // public void handleNewContactAddedEvent(NewContactAddedEvent event)
-    // {
-    // /*
-    // * Each Item has a set of Properties that hold values. Here we set a
-    // * couple of those.
-    // */
-    // contactList.getContainerProperty(event.contactId, FNAME).setValue("New");
-    // contactList.getContainerProperty(event.contactId,
-    // LNAME).setValue("Contact");
-    //
-    // /* Lets choose the newly created contact to edit it. */
-    // contactList.select(event.contactId);
-    // }
+    @Override
+    public void addNewContact(Object contact)
+    {
+        /*
+         * Each Item has a set of Properties that hold values. Here we set a
+         * couple of those.
+         */
+        contactList.getContainerProperty(contact, FNAME).setValue("New");
+        contactList.getContainerProperty(contact, LNAME).setValue("Contact");
 
-    // @Override
-    // @Subscribe
-    // public void handleRemoveSelectedContactEvent(RemoveSelectedContactEvent
-    // event)
-    // {
-    // Object contactId = contactList.getValue();
-    // contactList.removeItem(contactId);
-    // }
+        /* Lets choose the newly created contact to edit it. */
+        contactList.select(contact);
+    }
+
+    @Override
+    public void removeSelectedContact()
+    {
+        Object contactId = contactList.getValue();
+        contactList.removeItem(contactId);
+    }
 
     private void initLayout()
     {
@@ -182,7 +178,10 @@ public class ContactListImpl extends VerticalLayout implements ContactList
             @Override
             public void buttonClick(ClickEvent event)
             {
-                // eventBus.post(new AddNewContactEvent());
+                for (ContactList.Listener listener : listeners)
+                {
+                    listener.addNewContact();
+                }
             }
         });
     }

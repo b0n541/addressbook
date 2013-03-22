@@ -22,6 +22,11 @@ public interface ContactList extends View<ContactList.Listener>
          *            New search string
          */
         public void searchStringChanged(String text);
+
+        /**
+         * Adds new contact.
+         */
+        public void addNewContact();
     }
 
     /**
@@ -31,4 +36,17 @@ public interface ContactList extends View<ContactList.Listener>
      *            Data model
      */
     public void setDataModel(AddressbookModel model);
+
+    /**
+     * Gets the selected contact.
+     */
+    public void removeSelectedContact();
+
+    /**
+     * Adds a new contact.
+     * 
+     * @param object
+     *            New contact
+     */
+    void addNewContact(Object object);
 }

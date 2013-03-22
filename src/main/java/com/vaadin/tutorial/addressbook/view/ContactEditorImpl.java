@@ -84,7 +84,10 @@ public class ContactEditorImpl extends FormLayout implements ContactEditor
             @Override
             public void buttonClick(ClickEvent event)
             {
-                // eventBus.post(new RemoveSelectedContactEvent());
+                for (ContactEditor.Listener listener : listeners)
+                {
+                    listener.removeSelectedContact();
+                }
             }
         });
     }

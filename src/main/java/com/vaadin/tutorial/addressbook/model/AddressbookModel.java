@@ -3,7 +3,6 @@ package com.vaadin.tutorial.addressbook.model;
 import com.google.gwt.thirdparty.guava.common.eventbus.EventBus;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.tutorial.addressbook.AddressbookUI;
-import com.vaadin.tutorial.addressbook.event.NewContactAddedEvent;
 
 /**
  * Data model for {@link AddressbookUI}
@@ -44,7 +43,7 @@ public class AddressbookModel extends IndexedContainer
         removeAllContainerFilters();
         Object contactId = addItemAt(0);
 
-        eventBus.post(new NewContactAddedEvent(contactId));
+        // eventBus.post(new NewContactAddedEvent(contactId));
     }
 
     private void initData()
