@@ -49,10 +49,10 @@ public class AddressbookUI extends UI {
 
 		/* Root of the user interface component tree is set */
 		HorizontalSplitPanel splitPanel = new HorizontalSplitPanel();
-		setContent(splitPanel);
-
 		/* Build the component tree */
 		splitPanel.addComponent(new ContactTreeImpl(eventBus));
 		splitPanel.addComponent(new ContactEditorImpl(eventBus));
+
+		setContent(splitPanel);
 	}
 }
