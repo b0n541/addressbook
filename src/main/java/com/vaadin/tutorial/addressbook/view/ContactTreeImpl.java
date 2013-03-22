@@ -98,14 +98,12 @@ public class ContactTreeImpl extends VerticalLayout implements ContactTree {
 	}
 
 	private void initLayout() {
+
 		addComponent(contactList);
+
 		HorizontalLayout bottomLeftLayout = new HorizontalLayout();
-		addComponent(bottomLeftLayout);
 		bottomLeftLayout.addComponent(searchField);
 		bottomLeftLayout.addComponent(addNewContactButton);
-
-		/* Set the contents in the left of the split panel to use all the space */
-		setSizeFull();
 
 		/*
 		 * On the left side, expand the size of the contactList so that it uses
@@ -122,6 +120,15 @@ public class ContactTreeImpl extends VerticalLayout implements ContactTree {
 		bottomLeftLayout.setWidth("100%");
 		searchField.setWidth("100%");
 		bottomLeftLayout.setExpandRatio(searchField, 1);
+		bottomLeftLayout.setSpacing(true);
+
+		addComponent(bottomLeftLayout);
+
+		setMargin(true);
+		setSpacing(true);
+
+		/* Set the contents in the left of the split panel to use all the space */
+		setSizeFull();
 	}
 
 	private void initSearch() {
