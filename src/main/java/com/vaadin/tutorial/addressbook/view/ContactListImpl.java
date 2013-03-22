@@ -3,14 +3,11 @@ package com.vaadin.tutorial.addressbook.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.thirdparty.guava.common.eventbus.Subscribe;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
-import com.vaadin.tutorial.addressbook.event.InitContactListEvent;
-import com.vaadin.tutorial.addressbook.event.NewContactAddedEvent;
-import com.vaadin.tutorial.addressbook.event.RemoveSelectedContactEvent;
+import com.vaadin.tutorial.addressbook.model.AddressbookModel;
 import com.vaadin.ui.AbstractTextField.TextChangeEventMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -49,10 +46,9 @@ public class ContactListImpl extends VerticalLayout implements ContactList
     }
 
     @Override
-    @Subscribe
-    public void handleInitContactListEvent(InitContactListEvent event)
+    public void setDataModel(AddressbookModel model)
     {
-        contactList.setContainerDataSource(event.contactList);
+        contactList.setContainerDataSource(model);
         contactList.setVisibleColumns(new String[]
         { FNAME, LNAME, COMPANY });
         contactList.setSelectable(true);
@@ -73,39 +69,42 @@ public class ContactListImpl extends VerticalLayout implements ContactList
                  */
                 if (contactId != null)
                 {
-                    // eventBus.post(new
-                    // ContactSelectEvent(contactList.getItem(contactId)));
+                    for (ContactList.Listener listener : listeners)
+                    {
+                        listener.contactSelected(contactList.getItem(contactId));
+                    }
                 }
             }
         });
     }
 
-    @Override
-    @Subscribe
-    public void handleNewContactAddedEvent(NewContactAddedEvent event)
-    {
-        /*
-         * Each Item has a set of Properties that hold values. Here we set a
-         * couple of those.
-         */
-        contactList.getContainerProperty(event.contactId, FNAME).setValue("New");
-        contactList.getContainerProperty(event.contactId, LNAME).setValue("Contact");
+    // @Override
+    // @Subscribe
+    // public void handleNewContactAddedEvent(NewContactAddedEvent event)
+    // {
+    // /*
+    // * Each Item has a set of Properties that hold values. Here we set a
+    // * couple of those.
+    // */
+    // contactList.getContainerProperty(event.contactId, FNAME).setValue("New");
+    // contactList.getContainerProperty(event.contactId,
+    // LNAME).setValue("Contact");
+    //
+    // /* Lets choose the newly created contact to edit it. */
+    // contactList.select(event.contactId);
+    // }
 
-        /* Lets choose the newly created contact to edit it. */
-        contactList.select(event.contactId);
-    }
-
-    @Override
-    @Subscribe
-    public void handleRemoveSelectedContactEvent(RemoveSelectedContactEvent event)
-    {
-        Object contactId = contactList.getValue();
-        contactList.removeItem(contactId);
-    }
+    // @Override
+    // @Subscribe
+    // public void handleRemoveSelectedContactEvent(RemoveSelectedContactEvent
+    // event)
+    // {
+    // Object contactId = contactList.getValue();
+    // contactList.removeItem(contactId);
+    // }
 
     private void initLayout()
     {
-
         addComponent(contactList);
 
         HorizontalLayout bottomLeftLayout = new HorizontalLayout();
@@ -140,7 +139,6 @@ public class ContactListImpl extends VerticalLayout implements ContactList
 
     private void initSearch()
     {
-
         /*
          * We want to show a subtle prompt in the search field. We could also
          * set a caption that would be shown above the field or description to
@@ -169,10 +167,10 @@ public class ContactListImpl extends VerticalLayout implements ContactList
             @Override
             public void textChange(final TextChangeEvent event)
             {
-
-                /* Reset the filter for the contactContainer. */
-                // eventBus.post(new ContactFilterEvent(new
-                // ContactFilter(event.getText())));
+                for (ContactList.Listener listener : listeners)
+                {
+                    listener.searchStringChanged(event.getText());
+                }
             }
         });
     }

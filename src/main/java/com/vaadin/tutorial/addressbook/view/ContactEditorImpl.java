@@ -3,9 +3,8 @@ package com.vaadin.tutorial.addressbook.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.thirdparty.guava.common.eventbus.Subscribe;
+import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.tutorial.addressbook.event.ContactSelectEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -42,16 +41,14 @@ public class ContactEditorImpl extends FormLayout implements ContactEditor
     }
 
     @Override
-    @Subscribe
-    public void handleContactSelectEvent(ContactSelectEvent event)
+    public void setSelectedContact(Item contact)
     {
-        editorFields.setItemDataSource(event.contact);
+        editorFields.setItemDataSource(contact);
         setVisible(true);
     }
 
     private void initLayout()
     {
-
         addComponent(removeContactButton);
 
         /* User interface can be created dynamically to reflect underlying data. */

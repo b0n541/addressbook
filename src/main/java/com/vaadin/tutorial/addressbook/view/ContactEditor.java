@@ -1,6 +1,6 @@
 package com.vaadin.tutorial.addressbook.view;
 
-import com.vaadin.tutorial.addressbook.event.ContactSelectEvent;
+import com.vaadin.data.Item;
 
 public interface ContactEditor extends View<ContactEditor.Listener>
 {
@@ -9,5 +9,5 @@ public interface ContactEditor extends View<ContactEditor.Listener>
 
     }
 
-    public void handleContactSelectEvent(ContactSelectEvent event);
+    void setSelectedContact(Item contact);
 }

@@ -52,6 +52,7 @@ public class AddressbookUI extends UI
         contactEditorPresenter = new ContactEditorPresenter(contactEditor, model, eventBus);
 
         initLayout();
+
         eventBus.post(new InitContactListEvent(model));
     }
 
