@@ -47,6 +47,7 @@ public class ContactTreeImpl extends VerticalLayout implements ContactTree {
 		initButtonAction();
 	}
 
+	@Override
 	@Subscribe
 	public void handleInitContactListEvent(InitContactListEvent event) {
 		contactList.setContainerDataSource(event.contactList);
@@ -72,6 +73,7 @@ public class ContactTreeImpl extends VerticalLayout implements ContactTree {
 		});
 	}
 
+	@Override
 	@Subscribe
 	public void handleNewContactAddedEvent(NewContactAddedEvent event) {
 		/*
@@ -87,6 +89,7 @@ public class ContactTreeImpl extends VerticalLayout implements ContactTree {
 		contactList.select(event.contactId);
 	}
 
+	@Override
 	@Subscribe
 	public void handleRemoveSelectedContactEvent(
 			RemoveSelectedContactEvent event) {

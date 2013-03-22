@@ -36,6 +36,7 @@ public class ContactEditorImpl extends FormLayout implements ContactEditor {
 		initButtonAction();
 	}
 
+	@Override
 	@Subscribe
 	public void handleContactSelectEvent(ContactSelectEvent event) {
 		editorFields.setItemDataSource(event.contact);
