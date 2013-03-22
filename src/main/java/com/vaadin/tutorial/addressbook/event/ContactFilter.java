@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.addressbook.model;
+package com.vaadin.tutorial.addressbook.event;
 
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.Item;

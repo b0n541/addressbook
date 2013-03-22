@@ -3,6 +3,7 @@ package com.vaadin.tutorial.addressbook.model;
 import com.google.gwt.thirdparty.guava.common.eventbus.EventBus;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.tutorial.addressbook.AddressbookUI;
+import com.vaadin.tutorial.addressbook.event.ContactFilter;
 
 /**
  * Data model for {@link AddressbookUI}
