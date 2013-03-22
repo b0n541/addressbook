@@ -3,19 +3,14 @@ package com.vaadin.tutorial.addressbook.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.thirdparty.guava.common.eventbus.EventBus;
 import com.google.gwt.thirdparty.guava.common.eventbus.Subscribe;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
-import com.vaadin.tutorial.addressbook.event.AddNewContactEvent;
-import com.vaadin.tutorial.addressbook.event.ContactFilterEvent;
-import com.vaadin.tutorial.addressbook.event.ContactSelectEvent;
 import com.vaadin.tutorial.addressbook.event.InitContactListEvent;
 import com.vaadin.tutorial.addressbook.event.NewContactAddedEvent;
 import com.vaadin.tutorial.addressbook.event.RemoveSelectedContactEvent;
-import com.vaadin.tutorial.addressbook.model.ContactFilter;
 import com.vaadin.ui.AbstractTextField.TextChangeEventMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -36,19 +31,12 @@ public class ContactListImpl extends VerticalLayout implements ContactList
     private static final String              LNAME               = "Last Name";
     private static final String              COMPANY             = "Company";
 
-    private final EventBus                   eventBus;
-
     private final Table                      contactList         = new Table();
     private final TextField                  searchField         = new TextField();
     private final Button                     addNewContactButton = new Button("New");
 
-    public ContactListImpl(EventBus eventBus)
+    public ContactListImpl()
     {
-
-        this.eventBus = eventBus;
-
-        eventBus.register(this);
-
         initLayout();
         initSearch();
         initButtonAction();
@@ -83,7 +71,11 @@ public class ContactListImpl extends VerticalLayout implements ContactList
                  * FieldGroup that binds all the fields to the corresponding
                  * Properties in our contact at once.
                  */
-                if (contactId != null) eventBus.post(new ContactSelectEvent(contactList.getItem(contactId)));
+                if (contactId != null)
+                {
+                    // eventBus.post(new
+                    // ContactSelectEvent(contactList.getItem(contactId)));
+                }
             }
         });
     }
@@ -179,7 +171,8 @@ public class ContactListImpl extends VerticalLayout implements ContactList
             {
 
                 /* Reset the filter for the contactContainer. */
-                eventBus.post(new ContactFilterEvent(new ContactFilter(event.getText())));
+                // eventBus.post(new ContactFilterEvent(new
+                // ContactFilter(event.getText())));
             }
         });
     }
@@ -191,7 +184,7 @@ public class ContactListImpl extends VerticalLayout implements ContactList
             @Override
             public void buttonClick(ClickEvent event)
             {
-                eventBus.post(new AddNewContactEvent());
+                // eventBus.post(new AddNewContactEvent());
             }
         });
     }

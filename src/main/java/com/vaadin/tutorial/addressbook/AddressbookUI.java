@@ -2,10 +2,11 @@ package com.vaadin.tutorial.addressbook;
 
 import com.google.gwt.thirdparty.guava.common.eventbus.EventBus;
 import com.vaadin.annotations.Title;
-import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.tutorial.addressbook.event.InitContactListEvent;
 import com.vaadin.tutorial.addressbook.model.AddressbookModel;
+import com.vaadin.tutorial.addressbook.presenter.ContactEditorPresenter;
+import com.vaadin.tutorial.addressbook.presenter.ContactListPresenter;
 import com.vaadin.tutorial.addressbook.view.ContactEditorImpl;
 import com.vaadin.tutorial.addressbook.view.ContactListImpl;
 import com.vaadin.ui.HorizontalSplitPanel;
@@ -18,41 +19,55 @@ import com.vaadin.ui.UI;
  * embed your UI to an existing web page. 
  */
 @Title("Addressbook")
-public class AddressbookUI extends UI {
+public class AddressbookUI extends UI
+{
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	EventBus eventBus = new EventBus();
+    EventBus                  eventBus         = new EventBus();
 
-	/*
-	 * Any component can be bound to an external data source. This example uses
-	 * just a dummy in-memory list, but there are many more practical
-	 * implementations.
-	 */
-	IndexedContainer contactContainer = new AddressbookModel(eventBus);
+    ContactListImpl           contactList;
+    ContactListPresenter      contactListPresenter;
+    ContactEditorImpl         contactEditor;
+    ContactEditorPresenter    contactEditorPresenter;
 
-	/*
-	 * After UI class is created, init() is executed. You should build and wire
-	 * up your user interface here.
-	 */
-	@Override
-	protected void init(VaadinRequest request) {
-		initLayout();
-		eventBus.post(new InitContactListEvent(contactContainer));
-	}
+    /*
+     * Any component can be bound to an external data source. This example uses
+     * just a dummy in-memory list, but there are many more practical
+     * implementations.
+     */
+    AddressbookModel          model            = new AddressbookModel(eventBus);
 
-	/*
-	 * In this example layouts are programmed in Java. You may choose use a
-	 * visual editor, CSS or HTML templates for layout instead.
-	 */
-	private void initLayout() {
+    /*
+     * After UI class is created, init() is executed. You should build and wire
+     * up your user interface here.
+     */
+    @Override
+    protected void init(VaadinRequest request)
+    {
+        contactList = new ContactListImpl();
+        contactListPresenter = new ContactListPresenter(contactList, model, eventBus);
 
-		/* Root of the user interface component tree is set */
-		HorizontalSplitPanel splitPanel = new HorizontalSplitPanel();
-		/* Build the component tree */
-		splitPanel.addComponent(new ContactListImpl(eventBus));
-		splitPanel.addComponent(new ContactEditorImpl(eventBus));
+        contactEditor = new ContactEditorImpl();
+        contactEditorPresenter = new ContactEditorPresenter(contactEditor, model, eventBus);
 
-		setContent(splitPanel);
-	}
+        initLayout();
+        eventBus.post(new InitContactListEvent(model));
+    }
+
+    /*
+     * In this example layouts are programmed in Java. You may choose use a
+     * visual editor, CSS or HTML templates for layout instead.
+     */
+    private void initLayout()
+    {
+
+        /* Root of the user interface component tree is set */
+        HorizontalSplitPanel splitPanel = new HorizontalSplitPanel();
+        /* Build the component tree */
+        splitPanel.addComponent(contactList);
+        splitPanel.addComponent(contactEditor);
+
+        setContent(splitPanel);
+    }
 }

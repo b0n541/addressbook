@@ -3,11 +3,9 @@ package com.vaadin.tutorial.addressbook.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.thirdparty.guava.common.eventbus.EventBus;
 import com.google.gwt.thirdparty.guava.common.eventbus.Subscribe;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.tutorial.addressbook.event.ContactSelectEvent;
-import com.vaadin.tutorial.addressbook.event.RemoveSelectedContactEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -20,8 +18,6 @@ public class ContactEditorImpl extends FormLayout implements ContactEditor
 
     private final List<ContactEditor.Listener> listeners           = new ArrayList<ContactEditor.Listener>();
 
-    private final EventBus                     eventBus;
-
     private final Button                       removeContactButton = new Button("Remove this contact");
     private final FieldGroup                   editorFields        = new FieldGroup();
 
@@ -33,11 +29,8 @@ public class ContactEditorImpl extends FormLayout implements ContactEditor
             "Work Phone", "Home Phone", "Work Email", "Home Email", "Street", "City", "Zip", "State",
             "Country"                                             };
 
-    public ContactEditorImpl(EventBus eventBus)
+    public ContactEditorImpl()
     {
-        this.eventBus = eventBus;
-        eventBus.register(this);
-
         initLayout();
         initButtonAction();
     }
@@ -94,7 +87,7 @@ public class ContactEditorImpl extends FormLayout implements ContactEditor
             @Override
             public void buttonClick(ClickEvent event)
             {
-                eventBus.post(new RemoveSelectedContactEvent());
+                // eventBus.post(new RemoveSelectedContactEvent());
             }
         });
     }
